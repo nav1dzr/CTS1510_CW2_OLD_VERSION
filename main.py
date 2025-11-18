@@ -1,3 +1,10 @@
+from auth import (
+    validate_username,
+    validate_password,
+    register_user,
+    login_user
+)
+
 def display_menu():
     """Displays the main menu options."""
     print("\n" + "="*50)
@@ -16,9 +23,7 @@ def main():
     while True:
         display_menu()
         choice = input("\nPlease select an option (1-3): ").strip()
-        
         if choice == '1':
-            # Registration flow
             print("\n--- USER REGISTRATION ---")
             username = input("Enter a username: ").strip()
             
@@ -29,14 +34,15 @@ def main():
                 continue
             
             password = input("Enter a password: ").strip()
+            
             # Validate password
             is_valid, error_msg = validate_password(password)
             if not is_valid:
                 print(f"Error: {error_msg}")
                 continue
             
-            # Confirm password
             password_confirm = input("Confirm password: ").strip()
+            
             if password != password_confirm:
                 print("Error: Passwords do not match.")
                 continue
@@ -45,26 +51,23 @@ def main():
             register_user(username, password)
         
         elif choice == '2':
-            # Login flow
             print("\n--- USER LOGIN ---")
             username = input("Enter your username: ").strip()
             password = input("Enter your password: ").strip()
             
-            # Attempt login
             if login_user(username, password):
-                print("\nYou are now logged in.")
-                print("(In a real application, you would now access the protected resources.)")
-                
-                # Optional: Ask if they want to logout or exit
-                input("\nPress Enter to return to main menu...")
+                print("\nLogin successful!")
+                input("Press Enter to return to the main menu...")
+            else:
+                print("Error: Invalid username or password.")
         
         elif choice == '3':
-            # Exit
             print("\nThank you for using the authentication system.")
-            print("Exiting...")
+            print("Goodbye!")
             break
         
         else:
             print("\nError: Invalid option. Please select 1, 2, or 3.")
-if __name__ == "__main__":
+
+if name == "__main__":
     main()
